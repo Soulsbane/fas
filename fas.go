@@ -4,35 +4,32 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
-	"time"
 
 	"github.com/BurntSushi/toml"
 	"github.com/Soulsbane/goapp/pkg/cli"
 )
 
+/* Only useful if we store Duration in a value
 type duration struct {
 	time.Duration
-}
-type scene struct {
-	Name     string
-	Duration duration
-}
-type songs struct {
-	Scenes []scene `toml:"scene"`
-}
-
-type Scene struct {
-	Name        string
-	Season      string
-	Episode     string
-	Time        string
-	Description string
 }
 
 func (d *duration) UnmarshalText(text []byte) error {
 	var err error
 	d.Duration, err = time.ParseDuration(string(text))
 	return err
+}*/
+
+type scenes struct {
+	Scenes []Scene `toml:"scene"`
+}
+
+type Scene struct {
+	Name        string
+	Season      string
+	Episode     string
+	Time        string // TODO: Make a Duration type instead?
+	Description string
 }
 
 var args struct {
@@ -44,12 +41,12 @@ func main() {
 	app.PrintWarning("blah")
 	content, _ := ioutil.ReadFile("test.toml")
 
-	var favorites songs
+	var favorites scenes
 	if _, err := toml.Decode(string(content), &favorites); err != nil {
 		log.Fatal(err)
 	}
 
 	for _, s := range favorites.Scenes {
-		fmt.Printf("%s (%s)\n", s.Name, s.Duration)
+		fmt.Printf("%s (%s)\n", s.Name, s.Season)
 	}
 }
