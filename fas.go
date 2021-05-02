@@ -9,17 +9,6 @@ import (
 	"github.com/Soulsbane/goapp/pkg/cli"
 )
 
-/* Only useful if we store Duration in a value
-type duration struct {
-	time.Duration
-}
-
-func (d *duration) UnmarshalText(text []byte) error {
-	var err error
-	d.Duration, err = time.ParseDuration(string(text))
-	return err
-}*/
-
 type scenes struct {
 	Scenes []Scene `toml:"scene"`
 }
@@ -28,7 +17,7 @@ type Scene struct {
 	Name        string
 	Season      string
 	Episode     string
-	Time        string // TODO: Make a Duration type instead?
+	Time        string
 	Description string
 }
 
