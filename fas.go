@@ -5,11 +5,12 @@ import (
 	"io/ioutil"
 	"log"
 
-	"github.com/BurntSushi/toml"
 	"github.com/Soulsbane/goapp/pkg/cli"
+	"github.com/pelletier/go-toml"
 )
 
-type scenes struct {
+type anime struct {
+	Anime  string  `toml:"anime"`
 	Scenes []Scene `toml:"scene"`
 }
 
@@ -26,16 +27,18 @@ var args struct {
 }
 
 func main() {
+	var favorites anime
 	app := cli.NewCmdLineApp("Test App", "1.0", &args)
-	app.PrintWarning("blah")
+
+	app.PrintWarning("This is alpha software. Use at your own risk!")
 	content, _ := ioutil.ReadFile("test.toml")
 
-	var favorites scenes
-	if _, err := toml.Decode(string(content), &favorites); err != nil {
+	if err := toml.Unmarshal(content, &favorites); err != nil {
 		log.Fatal(err)
 	}
 
+	fmt.Println("Anime: ", favorites.Anime)
 	for _, s := range favorites.Scenes {
-		fmt.Printf("%s (%s)\n", s.Name, s.Season)
+		fmt.Printf("%s (%s) - %s\n", s.Name, s.Episode, s.Time)
 	}
 }

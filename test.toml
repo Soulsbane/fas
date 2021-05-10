@@ -1,0 +1,10 @@
+anime = "Inuyasha"
+[[scene]]
+name = "Naraku's final form"
+episode = "123"
+time = "9m15s"
+
+[[scene]]
+name = "Sesshoumaru Demon Form"
+episode = "7"
+time = "11m55s"
