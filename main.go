@@ -2,11 +2,9 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
-	"log"
+	"os"
 
 	"github.com/Soulsbane/goapp/pkg/cli"
-	"github.com/pelletier/go-toml"
 )
 
 var args struct {
@@ -14,18 +12,15 @@ var args struct {
 }
 
 func main() {
-	var favorites anime
 	app := cli.NewCmdLineApp("Test App", "1.0", &args)
 
 	app.PrintWarning("This is alpha software. Use at your own risk!")
-	content, _ := ioutil.ReadFile("test.toml")
 
-	if err := toml.Unmarshal(content, &favorites); err != nil {
-		log.Fatal(err)
+	dir, err := os.Getwd()
+
+	if err != nil {
+		fmt.Println(err)
 	}
 
-	fmt.Println("Anime: ", favorites.Anime)
-	for _, s := range favorites.Scenes {
-		fmt.Printf("%s (%s) - %s\n", s.Name, s.Episode, s.Time)
-	}
+	loadScenes(dir)
 }
