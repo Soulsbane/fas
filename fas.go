@@ -46,7 +46,7 @@ func loadScenes(dir string) {
 
 func processTOML(pathname string) {
 	var favorite anime
-	content, _ := ioutil.ReadFile("test.toml")
+	content, _ := ioutil.ReadFile(pathname)
 
 	if err := toml.Unmarshal(content, &favorite); err != nil {
 		log.Fatal(err)
