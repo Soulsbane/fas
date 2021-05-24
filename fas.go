@@ -4,11 +4,9 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
-	"os"
 	"strings"
 
 	"github.com/pelletier/go-toml"
-	"github.com/saracen/walker"
 )
 
 type anime struct {
@@ -24,24 +22,20 @@ type Scene struct {
 	Description string
 }
 
-func loadScenes(dir string) {
-	walkFn := func(pathname string, fi os.FileInfo) error {
-		if strings.HasSuffix(pathname, ".toml") {
-			processTOML(pathname)
-		}
+func loadScenes(path string) {
+	files, err := ioutil.ReadDir(".")
 
-		return nil
+	if err != nil {
+		log.Fatal(err)
 	}
 
-	errorCallbackOption := walker.WithErrorCallback(func(pathname string, err error) error {
-		if os.IsPermission(err) {
-			return nil
+	for _, file := range files {
+		fileName := file.Name()
+
+		if strings.HasSuffix(fileName, ".toml") {
+			processTOML(fileName)
 		}
-
-		return err
-	})
-
-	walker.Walk(dir, walkFn, errorCallbackOption)
+	}
 }
 
 func processTOML(pathname string) {
