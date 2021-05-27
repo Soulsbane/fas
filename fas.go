@@ -11,10 +11,10 @@ import (
 
 type anime struct {
 	Anime  string  `toml:"anime"`
-	Scenes []Scene `toml:"scene"`
+	Scenes []scene `toml:"scene"`
 }
 
-type Scene struct {
+type scene struct {
 	Name        string
 	Season      string
 	Episode     string
