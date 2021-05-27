@@ -22,5 +22,5 @@ func main() {
 		fmt.Println(err)
 	}
 
-	loadScenes(dir)
+	loadSceneFiles(dir)
 }

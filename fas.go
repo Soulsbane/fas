@@ -22,7 +22,7 @@ type scene struct {
 	Description string
 }
 
-func loadScenes(path string) {
+func loadSceneFiles(path string) {
 	files, err := ioutil.ReadDir(".")
 
 	if err != nil {
@@ -33,12 +33,12 @@ func loadScenes(path string) {
 		fileName := file.Name()
 
 		if strings.HasSuffix(fileName, ".toml") {
-			processTOML(fileName)
+			loadSceneFile(fileName)
 		}
 	}
 }
 
-func processTOML(pathname string) {
+func loadSceneFile(pathname string) {
 	var favorite anime
 	content, _ := ioutil.ReadFile(pathname)
 
