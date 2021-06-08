@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/Soulsbane/fas/pkg/scene"
 	"github.com/Soulsbane/goapp/pkg/cli"
 )
 
@@ -22,5 +23,7 @@ func main() {
 		fmt.Println(err)
 	}
 
-	loadSceneFiles(dir)
+	//	var fav FavoriteAnimeScene
+	var fav scene.FavoriteAnimeScene
+	fav.LoadSceneFiles(dir)
 }

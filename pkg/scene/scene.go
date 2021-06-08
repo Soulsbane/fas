@@ -1,4 +1,4 @@
-package main
+package scene
 
 import (
 	"fmt"
@@ -8,6 +8,8 @@ import (
 
 	"github.com/pelletier/go-toml"
 )
+
+type FavoriteAnimeScene struct{}
 
 type anime struct {
 	Anime  string  `toml:"anime"`
@@ -22,7 +24,7 @@ type scene struct {
 	Description string
 }
 
-func loadSceneFiles(path string) {
+func (favorite FavoriteAnimeScene) LoadSceneFiles(path string) {
 	files, err := ioutil.ReadDir(".")
 
 	if err != nil {
@@ -33,12 +35,12 @@ func loadSceneFiles(path string) {
 		fileName := file.Name()
 
 		if strings.HasSuffix(fileName, ".toml") {
-			loadSceneFile(fileName)
+			favorite.LoadSceneFile(fileName)
 		}
 	}
 }
 
-func loadSceneFile(pathname string) {
+func (favoriteScene FavoriteAnimeScene) LoadSceneFile(pathname string) {
 	var favorite anime
 	content, _ := ioutil.ReadFile(pathname)
 
