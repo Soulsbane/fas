@@ -46,7 +46,9 @@ func loadSceneFile(pathname string) {
 		log.Fatal(err)
 	}
 
-	fmt.Println("Anime: ", favorite.Anime)
+	if len(favorite.Anime) > 0 {
+		fmt.Println("Anime: ", favorite.Anime)
+	}
 
 	for _, s := range favorite.Scenes {
 		fmt.Printf("%s (%s) - %s\n", s.Name, s.Episode, s.Time)
