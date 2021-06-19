@@ -9,10 +9,12 @@ import (
 	"github.com/pelletier/go-toml"
 )
 
-type FavoriteAnimeScene struct{}
+type FavoriteAnimeScene struct {
+	animes []anime
+}
 
 type anime struct {
-	Anime  string  `toml:"anime"`
+	Name   string  `toml:"anime"`
 	Scenes []scene `toml:"scene"`
 }
 
@@ -24,7 +26,7 @@ type scene struct {
 	Description string
 }
 
-func (favorite FavoriteAnimeScene) LoadSceneFiles(path string) {
+func (favorite *FavoriteAnimeScene) LoadSceneFiles(path string) {
 	files, err := ioutil.ReadDir(".")
 
 	if err != nil {
@@ -35,12 +37,13 @@ func (favorite FavoriteAnimeScene) LoadSceneFiles(path string) {
 		fileName := file.Name()
 
 		if strings.HasSuffix(fileName, ".toml") {
-			favorite.LoadSceneFile(fileName)
+			scene := favorite.LoadSceneFile(fileName)
+			favorite.animes = append(favorite.animes, scene)
 		}
 	}
 }
 
-func (favoriteScene FavoriteAnimeScene) LoadSceneFile(pathname string) {
+func (favoriteScene FavoriteAnimeScene) LoadSceneFile(pathname string) anime {
 	var favorite anime
 	content, _ := ioutil.ReadFile(pathname)
 
@@ -48,11 +51,17 @@ func (favoriteScene FavoriteAnimeScene) LoadSceneFile(pathname string) {
 		log.Fatal(err)
 	}
 
-	if len(favorite.Anime) > 0 {
-		fmt.Println("Anime: ", favorite.Anime)
-	}
+	return favorite
+}
 
-	for _, s := range favorite.Scenes {
-		fmt.Printf("%s (%s) - %s\n", s.Name, s.Episode, s.Time)
+func (favoriteScene FavoriteAnimeScene) OutputScenes() {
+	for _, a := range favoriteScene.animes {
+		if len(a.Name) > 0 {
+			fmt.Println("Name: ", a.Name)
+		}
+
+		for _, s := range a.Scenes {
+			fmt.Printf("%s (%s) - %s\n", s.Name, s.Episode, s.Time)
+		}
 	}
 }
