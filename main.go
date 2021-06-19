@@ -23,7 +23,7 @@ func main() {
 		fmt.Println(err)
 	}
 
-	var fav scene.FavoriteAnimeScene
+	var fav scene.Favorites
 	fav.LoadSceneFiles(dir)
 	fav.OutputScenes()
 }

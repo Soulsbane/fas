@@ -9,7 +9,7 @@ import (
 	"github.com/pelletier/go-toml"
 )
 
-type FavoriteAnimeScene struct {
+type Favorites struct {
 	animes []anime
 }
 
@@ -26,7 +26,7 @@ type scene struct {
 	Description string
 }
 
-func (favorite *FavoriteAnimeScene) LoadSceneFiles(path string) {
+func (favorite *Favorites) LoadSceneFiles(path string) {
 	files, err := ioutil.ReadDir(".")
 
 	if err != nil {
@@ -43,7 +43,7 @@ func (favorite *FavoriteAnimeScene) LoadSceneFiles(path string) {
 	}
 }
 
-func (favoriteScene FavoriteAnimeScene) LoadSceneFile(pathname string) anime {
+func (favoriteScene Favorites) LoadSceneFile(pathname string) anime {
 	var favorite anime
 	content, _ := ioutil.ReadFile(pathname)
 
@@ -54,7 +54,7 @@ func (favoriteScene FavoriteAnimeScene) LoadSceneFile(pathname string) anime {
 	return favorite
 }
 
-func (favoriteScene FavoriteAnimeScene) OutputScenes() {
+func (favoriteScene Favorites) OutputScenes() {
 	for _, a := range favoriteScene.animes {
 		if len(a.Name) > 0 {
 			fmt.Println("Name: ", a.Name)
