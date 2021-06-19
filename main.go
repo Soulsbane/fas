@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/Soulsbane/fas/pkg/scene"
+	"github.com/Soulsbane/fas/pkg/favorites"
 	"github.com/Soulsbane/goapp/pkg/cli"
 )
 
@@ -23,7 +23,7 @@ func main() {
 		fmt.Println(err)
 	}
 
-	var fav scene.Favorites
+	var fav favorites.Favorites
 	fav.LoadSceneFiles(dir)
 	fav.OutputScenes()
 }
