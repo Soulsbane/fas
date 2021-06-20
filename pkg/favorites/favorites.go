@@ -26,7 +26,7 @@ type scene struct {
 	Description string
 }
 
-func (favorite *Favorites) LoadSceneFiles(path string) {
+func (favorites *Favorites) LoadSceneFiles(path string) {
 	files, err := ioutil.ReadDir(".")
 
 	if err != nil {
@@ -37,13 +37,13 @@ func (favorite *Favorites) LoadSceneFiles(path string) {
 		fileName := file.Name()
 
 		if strings.HasSuffix(fileName, ".toml") {
-			scene := favorite.LoadSceneFile(fileName)
-			favorite.animes = append(favorite.animes, scene)
+			scene := favorites.LoadSceneFile(fileName)
+			favorites.animes = append(favorites.animes, scene)
 		}
 	}
 }
 
-func (favoriteScene Favorites) LoadSceneFile(pathname string) Anime {
+func (favorites Favorites) LoadSceneFile(pathname string) Anime {
 	var favorite Anime
 	content, _ := ioutil.ReadFile(pathname)
 
@@ -54,8 +54,8 @@ func (favoriteScene Favorites) LoadSceneFile(pathname string) Anime {
 	return favorite
 }
 
-func (favoriteScene Favorites) OutputScenes() {
-	for _, a := range favoriteScene.animes {
+func (favorites Favorites) OutputScenes() {
+	for _, a := range favorites.animes {
 		if len(a.Name) > 0 {
 			fmt.Println("Name: ", a.Name)
 		}
