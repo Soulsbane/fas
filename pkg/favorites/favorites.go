@@ -10,10 +10,10 @@ import (
 )
 
 type Favorites struct {
-	animes []anime
+	animes []Anime
 }
 
-type anime struct {
+type Anime struct {
 	Name   string  `toml:"anime"`
 	Scenes []scene `toml:"scene"`
 }
@@ -43,8 +43,8 @@ func (favorite *Favorites) LoadSceneFiles(path string) {
 	}
 }
 
-func (favoriteScene Favorites) LoadSceneFile(pathname string) anime {
-	var favorite anime
+func (favoriteScene Favorites) LoadSceneFile(pathname string) Anime {
+	var favorite Anime
 	content, _ := ioutil.ReadFile(pathname)
 
 	if err := toml.Unmarshal(content, &favorite); err != nil {
